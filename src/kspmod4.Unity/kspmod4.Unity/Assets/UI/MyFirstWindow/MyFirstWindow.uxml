@@ -9,6 +9,10 @@
             <ui:VisualElement name="icon" />
             <ui:TextField picking-mode="Ignore" label="Player name:" name="name-textfield" />
             <ui:Toggle label="Is it afternoon?" name="noon-toggle" class="toggle" />
+            <ui:VisualElement style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+                <ui:Label tabindex="-1" text="Some Value" display-tooltip-when-elided="true" style="flex-grow: 1;" />
+                <ui:ProgressBar value="50" title="fire" name="pbar" style="width: 200px;" />
+            </ui:VisualElement>
             <ui:Button text="Say hello!" name="say-hello-button" />
             <ui:Label name="greeting-label" />
             <ui:TreeView view-data-key="unity-tree-view" focusable="true" show-border="false" show-alternating-row-backgrounds="None" auto-expand="true" horizontal-scrolling="true" name="mytree" style="flex-grow: 1;" />

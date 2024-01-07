@@ -24,3 +24,8 @@
     margin-bottom: 16px;
 }
 
+#pbar .unity-progress-bar__progress {
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    background-color: rgb(255, 0, 0);
+}

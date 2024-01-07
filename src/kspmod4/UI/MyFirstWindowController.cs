@@ -20,6 +20,7 @@ public class MyFirstWindowController : MonoBehaviour
     private Toggle _noonToggle;
     private Label _greetingLabel;
     private TreeView _myTree;
+    private ProgressBar _pbar;
 
     // The backing field for the IsWindowOpen property
     private bool _isWindowOpen;
@@ -53,6 +54,22 @@ public class MyFirstWindowController : MonoBehaviour
         }
     }
 
+    public void updateProgressBar()
+    {
+
+        if (_pbar.value <= 100.0f)
+        {
+            _pbar.value = _pbar.value + 25.0f;
+        } else if (_pbar.value >= 100.0f)
+        {
+            _pbar.value = 25.0f;
+        }
+
+        
+
+
+    }
+
     /// <summary>
     /// Runs when the window is first created, and every time the window is re-enabled.
     /// </summary>
@@ -72,6 +89,8 @@ public class MyFirstWindowController : MonoBehaviour
         _noonToggle = _rootElement.Q<Toggle>("noon-toggle");
         // Get the greeting label from the window
         _greetingLabel = _rootElement.Q<Label>("greeting-label");
+
+        _pbar = _rootElement.Q<ProgressBar>("pbar");
 
         _myTree = _rootElement.Q<TreeView>("mytree");
 

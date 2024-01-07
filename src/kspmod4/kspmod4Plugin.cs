@@ -33,6 +33,8 @@ public class kspmod4Plugin : BaseSpaceWarpPlugin
 
     public Coroutine MainUpdateLoop;
 
+    public MyFirstWindowController windowController;
+
     private static ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource("kspmod4.MyPlugin");
 
 
@@ -84,14 +86,14 @@ public class kspmod4Plugin : BaseSpaceWarpPlugin
         // Create the window
         var myFirstWindow = Window.Create(windowOptions, myFirstWindowUxml);
         // Add a controller for the UI to the window's game object
-        var myFirstWindowController = myFirstWindow.gameObject.AddComponent<MyFirstWindowController>();
+        windowController = myFirstWindow.gameObject.AddComponent<MyFirstWindowController>();
 
         // Register Flight AppBar button
         Appbar.RegisterAppButton(
             ModName,
             ToolbarFlightButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            isOpen => myFirstWindowController.IsWindowOpen = isOpen
+            isOpen => windowController.IsWindowOpen = isOpen
         );
 
         // Register OAB AppBar Button
@@ -99,7 +101,7 @@ public class kspmod4Plugin : BaseSpaceWarpPlugin
             ModName,
             ToolbarOabButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            isOpen => myFirstWindowController.IsWindowOpen = isOpen
+            isOpen => windowController.IsWindowOpen = isOpen
         );
 
         // Register KSC AppBar Button
@@ -107,7 +109,7 @@ public class kspmod4Plugin : BaseSpaceWarpPlugin
             ModName,
             ToolbarKscButtonID,
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
-            () => myFirstWindowController.IsWindowOpen = !myFirstWindowController.IsWindowOpen
+            () => windowController.IsWindowOpen = !windowController.IsWindowOpen
         );
 
         MainUpdateLoop = StartCoroutine(DoFlightUpdate());
@@ -119,9 +121,11 @@ public class kspmod4Plugin : BaseSpaceWarpPlugin
         while (true)
         {
             // Manager.Instance.DoFlightUpdate();
-            Logger.LogInfo("My plugin loop!");
+            // Logger.LogInfo("My plugin loop!");
 
-            yield return new WaitForSeconds((float)5000.0 / 1000);
+            windowController.updateProgressBar();
+
+            yield return new WaitForSeconds((float)1000.0 / 1000);
         }
     }
 
