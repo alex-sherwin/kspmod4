@@ -9,6 +9,8 @@ using kspmod4.UI;
 using UitkForKsp2.API;
 using UnityEngine;
 using UnityEngine.UIElements;
+using KSP.Networking.OnlineServices.Telemetry;
+using BepInEx.Logging;
 
 namespace kspmod4;
 
@@ -28,6 +30,12 @@ public class kspmod4Plugin : BaseSpaceWarpPlugin
     internal const string ToolbarFlightButtonID = "BTN-kspmod4Flight";
     internal const string ToolbarOabButtonID = "BTN-kspmod4OAB";
     internal const string ToolbarKscButtonID = "BTN-kspmod4KSC";
+
+    public Coroutine MainUpdateLoop;
+
+    private static ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource("kspmod4.MyPlugin");
+
+
 
     /// <summary>
     /// Runs when the mod is first initialized.
@@ -101,7 +109,22 @@ public class kspmod4Plugin : BaseSpaceWarpPlugin
             AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/icon.png"),
             () => myFirstWindowController.IsWindowOpen = !myFirstWindowController.IsWindowOpen
         );
+
+        MainUpdateLoop = StartCoroutine(DoFlightUpdate());
+
     }
+
+    private System.Collections.IEnumerator DoFlightUpdate()
+    {
+        while (true)
+        {
+            // Manager.Instance.DoFlightUpdate();
+            Logger.LogInfo("My plugin loop!");
+
+            yield return new WaitForSeconds((float)5000.0 / 1000);
+        }
+    }
+
 
     /// <summary>
     /// Loads all the assemblies for the mod.

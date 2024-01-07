@@ -19,6 +19,7 @@ public class MyFirstWindowController : MonoBehaviour
     private TextField _nameTextfield;
     private Toggle _noonToggle;
     private Label _greetingLabel;
+    private TreeView _myTree;
 
     // The backing field for the IsWindowOpen property
     private bool _isWindowOpen;
@@ -72,6 +73,10 @@ public class MyFirstWindowController : MonoBehaviour
         // Get the greeting label from the window
         _greetingLabel = _rootElement.Q<Label>("greeting-label");
 
+        _myTree = _rootElement.Q<TreeView>("mytree");
+
+        setupTree();
+
         // Center the window by default
         _rootElement.CenterByDefault();
 
@@ -84,6 +89,43 @@ public class MyFirstWindowController : MonoBehaviour
         var sayHelloButton = _rootElement.Q<Button>("say-hello-button");
         // Add a click event handler to the button
         sayHelloButton.clicked += SayHelloButtonClicked;
+    }
+
+    private void setupTree()
+    {
+        var items = new List<TreeViewItemData<string>>(110);
+        for (var i = 0; i < 10; i++)
+        {
+            var itemIndex = i * 10 + i;
+
+            var treeViewSubItemsData = new List<TreeViewItemData<string>>(10);
+            for (var j = 0; j < 10; j++)
+                treeViewSubItemsData.Add(new TreeViewItemData<string>(itemIndex + j + 1, (j + 1).ToString()));
+
+            var treeViewItemData = new TreeViewItemData<string>(itemIndex, (i + 1).ToString(), treeViewSubItemsData);
+            items.Add(treeViewItemData);
+        };
+
+        // The "makeItem" function will be called as needed
+        // when the TreeView needs more items to render
+        Func<VisualElement> makeItem = () => new Label();
+
+        // As the user scrolls through the list, the TreeView object
+        // will recycle elements created by the "makeItem"
+        // and invoke the "bindItem" callback to associate
+        // the element with the matching data item (specified as an index in the list)
+        Action<VisualElement, int> bindItem = (e, i) =>
+        {
+            var item = _myTree.GetItemDataForIndex<string>(i);
+            (e as Label).text = item;
+        };
+
+        _myTree.SetRootItems(items);
+        _myTree.makeItem = makeItem;
+        _myTree.bindItem = bindItem;
+        _myTree.selectionType = SelectionType.Multiple;
+        _myTree.Rebuild();
+
     }
 
     private void SayHelloButtonClicked()

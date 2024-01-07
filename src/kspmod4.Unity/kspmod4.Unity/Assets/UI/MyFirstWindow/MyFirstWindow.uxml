@@ -11,7 +11,7 @@
             <ui:Toggle label="Is it afternoon?" name="noon-toggle" class="toggle" />
             <ui:Button text="Say hello!" name="say-hello-button" />
             <ui:Label name="greeting-label" />
-            <ui:TreeView view-data-key="unity-tree-view" focusable="true" show-border="false" show-alternating-row-backgrounds="All" auto-expand="true" horizontal-scrolling="true" name="mytree" style="flex-grow: 1;" />
+            <ui:TreeView view-data-key="unity-tree-view" focusable="true" show-border="false" show-alternating-row-backgrounds="None" auto-expand="true" horizontal-scrolling="true" name="mytree" style="flex-grow: 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
