@@ -1,17 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/MyFirstWindow/MyFirstWindow.uss?fileID=7433441132597879392&amp;guid=f49119c0dc6aec7469a0374f7f606ceb&amp;type=3#MyFirstWindow" />
-    <ui:VisualElement class="root">
+    <ui:VisualElement name="VisualElement" class="root" style="height: 450px; width: 530px; flex-direction: column; flex-grow: 0; align-items: stretch; justify-content: center; max-height: 4500px;">
         <ui:VisualElement name="title-bar">
             <ui:Label text="ksp mod 4x2" />
             <ui:Button text="💀" name="close-button" />
         </ui:VisualElement>
-        <ui:VisualElement name="content">
+        <ui:VisualElement name="content" style="flex-grow: 1;">
             <ui:VisualElement name="icon" />
             <ui:TextField picking-mode="Ignore" label="Player name:" name="name-textfield" />
             <ui:Toggle label="Is it afternoon?" name="noon-toggle" class="toggle" />
             <ui:Button text="Say hello!" name="say-hello-button" />
             <ui:Label name="greeting-label" />
+            <ui:TreeView view-data-key="unity-tree-view" focusable="true" show-border="false" show-alternating-row-backgrounds="All" auto-expand="true" horizontal-scrolling="true" name="mytree" style="flex-grow: 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
-
